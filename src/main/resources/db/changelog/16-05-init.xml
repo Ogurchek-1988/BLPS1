@@ -1,0 +1,32 @@
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+                   xmlns:pro="http://www.liquibase.org/xml/ns/pro"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext
+                   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd
+                   http://www.liquibase.org/xml/ns/pro
+                   http://www.liquibase.org/xml/ns/pro/liquibase-pro-4.13.xsd
+                   http://www.liquibase.org/xml/ns/dbchangelog
+                   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd"
+>
+    <changeSet id="1674814075619" author="etoxto">
+        <createTable tableName="procurement">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints nullable="false"/>
+            </column>
+            <column name="stage1_id" type="BIGINT"/>
+            <column name="stage2_id" type="BIGINT"/>
+            <column name="stage3_id" type="BIGINT"/>
+            <column name="status" type="varchar(100)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <createTable tableName="stage">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints nullable="false"/>
+            </column>
+            <column name="name" type="varchar(255)"/>
+            <column name="date" type="timestamp"/>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>
