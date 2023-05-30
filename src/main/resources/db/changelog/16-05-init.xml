@@ -10,23 +10,27 @@
                    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd"
 >
     <changeSet id="1674814075619" author="etoxto">
-        <createTable tableName="procurement">
-            <column name="id" type="bigint" autoIncrement="true">
-                <constraints nullable="false"/>
-            </column>
-            <column name="stage1_id" type="BIGINT"/>
-            <column name="stage2_id" type="BIGINT"/>
-            <column name="stage3_id" type="BIGINT"/>
-            <column name="status" type="varchar(100)">
-                <constraints nullable="false"/>
-            </column>
-        </createTable>
         <createTable tableName="stage">
             <column name="id" type="bigint" autoIncrement="true">
-                <constraints nullable="false"/>
+                <constraints nullable="false" primaryKey="true"/>
             </column>
             <column name="name" type="varchar(255)"/>
-            <column name="date" type="timestamp"/>
+            <column name="date" type="date"/>
+        </createTable>
+        <createTable tableName="procurement">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="stage1_id" type="BIGINT">
+                <constraints referencedTableName="stage"/>
+            </column>
+            <column name="stage2_id" type="BIGINT">
+                <constraints referencedTableName="stage"/>
+            </column>
+            <column name="stage3_id" type="BIGINT">
+                <constraints referencedTableName="stage"/>
+            </column>
+            <column name="status" type="varchar(100)"/>
         </createTable>
     </changeSet>
 </databaseChangeLog>
