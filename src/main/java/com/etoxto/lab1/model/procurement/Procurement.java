@@ -17,6 +17,8 @@ public class Procurement {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private String name;
+
     @OneToOne
     private Stage stage1;
 
@@ -27,5 +29,34 @@ public class Procurement {
     private Stage stage3;
 
     @Enumerated(EnumType.STRING)
+    private AssignedType assignedType;
+
+    @Enumerated
     private ProcurementStatus status;
+
+    public Procurement(String name,
+                       Stage stage1,
+                       Stage stage2,
+                       Stage stage3,
+                       AssignedType assignedType,
+                       ProcurementStatus status) {
+        this.name = name;
+        this.stage1 = stage1;
+        this.stage2 = stage2;
+        this.stage3 = stage3;
+        this.assignedType = assignedType;
+        this.status = status;
+    }
+
+    public Procurement(String name,
+                       Stage stage1,
+                       Stage stage2,
+                       Stage stage3,
+                       AssignedType assignedType) {
+        this.name = name;
+        this.stage1 = stage1;
+        this.stage2 = stage2;
+        this.stage3 = stage3;
+        this.assignedType = assignedType;
+    }
 }

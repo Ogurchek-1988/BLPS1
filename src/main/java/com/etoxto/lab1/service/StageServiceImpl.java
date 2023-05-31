@@ -20,4 +20,9 @@ public class StageServiceImpl implements StageService {
     public Stage save(Stage stage) {
         return stageRepository.save(stage);
     }
+
+    @Override
+    public Stage getByName(String name) {
+        return stageRepository.getStageByName(name);
+    }
 }

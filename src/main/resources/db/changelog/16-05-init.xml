@@ -14,13 +14,14 @@
             <column name="id" type="bigint" autoIncrement="true">
                 <constraints nullable="false" primaryKey="true"/>
             </column>
-            <column name="name" type="varchar(255)"/>
+            <column name="name" type="varchar(155)"/>
             <column name="date" type="date"/>
         </createTable>
         <createTable tableName="procurement">
             <column name="id" type="bigint" autoIncrement="true">
                 <constraints nullable="false" primaryKey="true"/>
             </column>
+            <column name="name" type="varchar(155)"/>
             <column name="stage1_id" type="BIGINT">
                 <constraints referencedTableName="stage"/>
             </column>
@@ -30,7 +31,34 @@
             <column name="stage3_id" type="BIGINT">
                 <constraints referencedTableName="stage"/>
             </column>
-            <column name="status" type="varchar(100)"/>
+            <column name="assigned_type" type="varchar(255)"/>
+            <column name="status" type="SMALLINT"/>
+        </createTable>
+        <createTable tableName="issue">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="procurement_id" type="bigint">
+                <constraints referencedTableName="procurement"/>
+            </column>
+            <column name="extended_time" type="varchar(255)"/>
+            <column name="issue_status" type="varchar(255)"/>
+            <column name="additionally" type="smallint"/>
+        </createTable>
+        <createTable tableName="manager_stages">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="name" type="varchar(155)"/>
+            <column name="stage1_id" type="BIGINT">
+                <constraints referencedTableName="stage"/>
+            </column>
+            <column name="stage2_id" type="BIGINT">
+                <constraints referencedTableName="stage"/>
+            </column>
+            <column name="stage3_id" type="BIGINT">
+                <constraints referencedTableName="stage"/>
+            </column>
         </createTable>
     </changeSet>
 </databaseChangeLog>
