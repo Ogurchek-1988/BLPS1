@@ -38,6 +38,11 @@ public class AdminManagerController {
         return adminManagerService.createIssue(name, additionallyRequest);
     }
 
+    @PostMapping("/checkIssue/{name}")
+    ResponseEntity<?> checkIssue(@PathVariable String name) {
+        return adminManagerService.checkIssue(name);
+    }
+
     @PostMapping("/extendTime/{name}")
     public ResponseEntity<?> extendTime(@PathVariable String name,
                                  @RequestBody int days) {
