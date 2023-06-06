@@ -24,8 +24,7 @@ public class ManagerController {
     @PostMapping("/createTask/{name}")
     public ResponseEntity<?> createTask(@PathVariable String name,
                                  @RequestBody TaskRequest dto) {
-        var req =  managerService.createTask(name, dto.getStageRequest1(), dto.getStageRequest2(), dto.getStageRequest3());
-        return req;
+        return managerService.createTask(name, dto.getStageRequest1(), dto.getStageRequest2(), dto.getStageRequest3());
     }
 
     @PostMapping("/stage1/{name}")

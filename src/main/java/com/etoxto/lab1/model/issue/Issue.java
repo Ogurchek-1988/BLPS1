@@ -17,7 +17,7 @@ public class Issue {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private Procurement procurement;
 
     @Enumerated(EnumType.STRING)
@@ -26,7 +26,7 @@ public class Issue {
     @Enumerated(EnumType.STRING)
     private IssueStatus issueStatus;
 
-    @Enumerated
+    @Enumerated(EnumType.STRING)
     private Additionally additionally;
 
     public Issue(Procurement procurement,

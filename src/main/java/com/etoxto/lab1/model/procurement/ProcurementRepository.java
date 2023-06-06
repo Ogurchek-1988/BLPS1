@@ -10,6 +10,6 @@ import org.springframework.stereotype.Repository;
 public interface ProcurementRepository extends JpaRepository<Procurement, Long> {
     Procurement getProcurementByNameAndAssignedType(String name, AssignedType type);
     @Modifying
-    @Query("update Procurement proc set proc.status =: status where proc.id =: id")
-    Procurement setStatusById(@Param("id") Long id, @Param("status") ProcurementStatus status);
+    @Query("update Procurement proc set proc.status = :status where proc.id = :id")
+    void setStatusById(@Param("id") Long id, @Param("status") ProcurementStatus status);
 }

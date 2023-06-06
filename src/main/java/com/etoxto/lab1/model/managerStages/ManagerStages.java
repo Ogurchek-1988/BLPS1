@@ -19,13 +19,13 @@ public class ManagerStages {
 
     private String name;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private Stage stage1;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private Stage stage2;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private Stage stage3;
 
     public ManagerStages(String name,
