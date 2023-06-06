@@ -41,7 +41,7 @@ public class AdminManagerController {
     }
     @Transactional
     @PostMapping("/createTask")
-    ResponseEntity<?> createTask(@RequestBody String name,
+    public ResponseEntity<?> createTask(@RequestBody String name,
                                  @RequestBody StageRequest dtoStage1,
                                  @RequestBody StageRequest dtoStage2,
                                  @RequestBody StageRequest dtoStage3) {
@@ -58,7 +58,7 @@ public class AdminManagerController {
 
     @Transactional
     @PostMapping("/checkTask/{name}")
-    ResponseEntity<?> checkTask(@PathVariable String name) {
+    public ResponseEntity<?> checkTask(@PathVariable String name) {
         try {
             Procurement adminProcurement = procurementService.getProcurementByNameAndAssignedType(name, AssignedType.ADMIN);
             if (adminProcurement == null) {
@@ -107,7 +107,7 @@ public class AdminManagerController {
 
     @Transactional
     @PostMapping("/extendTime/{name}")
-    ResponseEntity<?> extendTime(@PathVariable String name,
+    public ResponseEntity<?> extendTime(@PathVariable String name,
                                  @RequestBody int days) {
         try {
             Issue issue = issueService.getIssueByProcurementName(name);
@@ -123,7 +123,7 @@ public class AdminManagerController {
                 return ResponseEntity.internalServerError().body(new ResponseWrapper("This manager stages does not exists"));
             }
             int count = 0;
-            String msg;
+            String msg = "";
 
             if (managerStages.getStage1().getDate().isAfter(issue.getProcurement().getStage1().getDate())) {
                 count = count + 1;
@@ -131,23 +131,27 @@ public class AdminManagerController {
                 issue.getProcurement().getStage1().setDate(issue.getProcurement().getStage1().getDate().plusDays(days));
             }
 
-            if (managerStages.getStage2().getDate().isAfter(issue.getProcurement().getStage2().getDate()) && count == 0) {
-                count = count + 1;
-                msg = "stage2";
-                issue.getProcurement().getStage2().setDate(issue.getProcurement().getStage2().getDate().plusDays(days));
-            } else {
-                issue.setIssueStatus(IssueStatus.FAILED);
-                issueService.update(issue);
-                return ResponseEntity.ok().body(new ResponseWrapper("Error limit exceeded, you failed this task"));
+            if (managerStages.getStage2().getDate().isAfter(issue.getProcurement().getStage2().getDate())) {
+                if (count == 0) {
+                    count = count + 1;
+                    msg = "stage2";
+                    issue.getProcurement().getStage2().setDate(issue.getProcurement().getStage2().getDate().plusDays(days));
+                } else {
+                    issue.setIssueStatus(IssueStatus.FAILED);
+                    issueService.update(issue);
+                    return ResponseEntity.ok().body(new ResponseWrapper("Error limit exceeded, you failed this task"));
+                }
             }
 
-            if (managerStages.getStage3().getDate().isAfter(issue.getProcurement().getStage3().getDate()) && count == 0) {
-                msg = "stage3";
-                issue.getProcurement().getStage3().setDate(issue.getProcurement().getStage3().getDate().plusDays(days));
-            } else {
-                issue.setIssueStatus(IssueStatus.FAILED);
-                issueService.update(issue);
-                return ResponseEntity.ok().body(new ResponseWrapper("Error limit exceeded, you failed this task"));
+            if (managerStages.getStage3().getDate().isAfter(issue.getProcurement().getStage3().getDate())) {
+                if (count == 0) {
+                    msg = "stage3";
+                    issue.getProcurement().getStage3().setDate(issue.getProcurement().getStage3().getDate().plusDays(days));
+                } else {
+                    issue.setIssueStatus(IssueStatus.FAILED);
+                    issueService.update(issue);
+                    return ResponseEntity.ok().body(new ResponseWrapper("Error limit exceeded, you failed this task"));
+                }
             }
 
             issue.setExtendedTime(ExtendedTime.YES);

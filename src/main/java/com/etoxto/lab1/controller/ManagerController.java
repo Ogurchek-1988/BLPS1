@@ -31,7 +31,7 @@ public class ManagerController {
 
     @Transactional
     @PostMapping("/createTask")
-    ResponseEntity<?> createTask(@RequestBody String name,
+    public ResponseEntity<?> createTask(@RequestBody String name,
                                  @RequestBody StageRequest dtoStage1,
                                  @RequestBody StageRequest dtoStage2,
                                  @RequestBody StageRequest dtoStage3) {
