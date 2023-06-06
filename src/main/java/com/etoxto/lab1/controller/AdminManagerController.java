@@ -1,7 +1,6 @@
 package com.etoxto.lab1.controller;
 
 import com.etoxto.lab1.network.request.AdditionallyRequest;
-import com.etoxto.lab1.network.request.StageRequest;
 import com.etoxto.lab1.network.request.TaskRequest;
 import com.etoxto.lab1.service.*;
 import lombok.extern.slf4j.Slf4j;
@@ -45,8 +44,8 @@ public class AdminManagerController {
 
     @PostMapping("/extendTime/{name}")
     public ResponseEntity<?> extendTime(@PathVariable String name,
-                                 @RequestBody int days) {
-        return adminManagerService.extendTime(name, days);
+                                 @RequestParam("days") String days) {
+        return adminManagerService.extendTime(name, Integer.parseInt(days));
     }
 
     @PostMapping("/closeIssue/{name}")
