@@ -9,6 +9,7 @@ import com.etoxto.lab1.network.respons.ResponseWrapper;
 import com.etoxto.lab1.service.ManagerStagesService;
 import com.etoxto.lab1.service.ProcurementService;
 import com.etoxto.lab1.service.StageService;
+import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -28,6 +29,7 @@ public class ManagerController {
         this.managerStagesService = managerStagesService;
     }
 
+    @Transactional
     @PostMapping("/createTask")
     ResponseEntity<?> createTask(@RequestBody String name,
                                  @RequestBody StageRequest dtoStage1,
@@ -44,6 +46,7 @@ public class ManagerController {
         }
     }
 
+    @Transactional
     @PostMapping("/stage1/{name}")
     public ResponseEntity<?> assignStage1(@PathVariable String name,
                                           @RequestBody StageRequest dto) {
@@ -62,6 +65,7 @@ public class ManagerController {
         }
     }
 
+    @Transactional
     @PostMapping("/stage2/{name}")
     public ResponseEntity<?> assignStage2(@PathVariable String name,
                                           @RequestBody StageRequest dto) {
@@ -80,6 +84,7 @@ public class ManagerController {
         }
     }
 
+    @Transactional
     @PostMapping("/stage3/{name}")
     public ResponseEntity<?> assignStage3(@PathVariable String name,
                                           @RequestBody StageRequest dto) {

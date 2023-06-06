@@ -16,6 +16,7 @@ import com.etoxto.lab1.service.IssueService;
 import com.etoxto.lab1.service.ManagerStagesService;
 import com.etoxto.lab1.service.ProcurementService;
 import com.etoxto.lab1.service.StageService;
+import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -38,6 +39,7 @@ public class AdminManagerController {
         this.issueService = issueService;
         this.managerStagesService = managerStagesService;
     }
+    @Transactional
     @PostMapping("/createTask")
     ResponseEntity<?> createTask(@RequestBody String name,
                                  @RequestBody StageRequest dtoStage1,
@@ -54,6 +56,7 @@ public class AdminManagerController {
         }
     }
 
+    @Transactional
     @PostMapping("/checkTask/{name}")
     ResponseEntity<?> checkTask(@PathVariable String name) {
         try {
@@ -102,6 +105,7 @@ public class AdminManagerController {
         }
     }
 
+    @Transactional
     @PostMapping("/extendTime/{name}")
     ResponseEntity<?> extendTime(@PathVariable String name,
                                  @RequestBody int days) {
