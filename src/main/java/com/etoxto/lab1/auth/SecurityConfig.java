@@ -51,8 +51,7 @@ public class SecurityConfig {
         http.oauth2Login()
                 .and()
                 .logout()
-                .addLogoutHandler(keycloakLogoutHandler)
-                .logoutSuccessUrl("/");
+                .addLogoutHandler(keycloakLogoutHandler);
         http.oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt);
         return http.build();
     }

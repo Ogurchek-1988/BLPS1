@@ -3,6 +3,7 @@ package com.etoxto.lab1.auth;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -18,6 +19,7 @@ public class KeycloakLogoutHandler implements LogoutHandler {
 
     private final RestTemplate restTemplate;
 
+    @Autowired
     public KeycloakLogoutHandler(RestTemplate restTemplate) {
         this.restTemplate = restTemplate;
     }
