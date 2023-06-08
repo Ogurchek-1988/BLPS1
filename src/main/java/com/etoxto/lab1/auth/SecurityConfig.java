@@ -17,6 +17,7 @@ import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.session.RegisterSessionAuthenticationStrategy;
 import org.springframework.security.web.authentication.session.SessionAuthenticationStrategy;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.Map;
 import java.util.Set;
@@ -26,10 +27,9 @@ import java.util.stream.Collectors;
 @EnableWebSecurity
 public class SecurityConfig {
 
-    private final KeycloakLogoutHandler keycloakLogoutHandler;
-
-    SecurityConfig(KeycloakLogoutHandler keycloakLogoutHandler) {
-        this.keycloakLogoutHandler = keycloakLogoutHandler;
+    @Bean
+    KeycloakLogoutHandler keycloakLogoutHandler() {
+        return new KeycloakLogoutHandler(new RestTemplate());
     }
 
     @Bean
@@ -51,7 +51,7 @@ public class SecurityConfig {
         http.oauth2Login()
                 .and()
                 .logout()
-                .addLogoutHandler(keycloakLogoutHandler);
+                .addLogoutHandler(keycloakLogoutHandler());
         http.oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt);
         return http.build();
     }

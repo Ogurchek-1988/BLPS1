@@ -4,22 +4,19 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.oauth2.core.oidc.user.OidcUser;
-import org.springframework.security.web.authentication.logout.LogoutHandler;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
-@Component
 @Slf4j
-public class KeycloakLogoutHandler implements LogoutHandler {
+public class KeycloakLogoutHandler extends SecurityContextLogoutHandler {
 
     private final RestTemplate restTemplate;
 
-    @Autowired
     public KeycloakLogoutHandler(RestTemplate restTemplate) {
         this.restTemplate = restTemplate;
     }
@@ -42,10 +39,5 @@ public class KeycloakLogoutHandler implements LogoutHandler {
         } else {
             log.error("Could not propagate logout to Keycloak");
         }
-    }
-
-    @Bean
-    public RestTemplate restTemplate() {
-        return new RestTemplate();
     }
 }
